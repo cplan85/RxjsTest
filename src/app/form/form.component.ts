@@ -7,10 +7,10 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  form: FormGroup;
+  myForm: FormGroup;
 
   constructor() {
-    this.form = new FormGroup({
+    this.myForm = new FormGroup({
       name: new FormControl(),
       surname: new FormControl(),
       company: new FormControl(),
@@ -20,4 +20,6 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  onSubmit() {}
 }

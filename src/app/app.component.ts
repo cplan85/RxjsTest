@@ -1,17 +1,26 @@
+import { JsonService } from './json.service';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'RxjsTest';
   obs: any;
 
+  constructor(private json: JsonService) {}
+
   ngOnInit() {
-    this.obs = new Observable(subscriber => {
+    this.json
+      .getData('https://api.github.com/users/ibuioli/repos')
+      .subscribe((val) => {
+        console.log(val);
+      });
+
+    this.obs = new Observable((subscriber) => {
       subscriber.next(1);
       subscriber.next(2);
       subscriber.next(3);
@@ -24,12 +33,17 @@ export class AppComponent {
 
   rxjsFunction() {
     console.log('just before subscribe');
-this.obs.subscribe({
-  next(x: number) { console.log('got value ' + x); },
-  error(err: {}) { console.error('something wrong occurred: ' + err); },
-  complete() { console.log('done'); }
-});
-console.log('just after subscribe');  
+    this.obs.subscribe({
+      next(x: number) {
+        console.log('got value ' + x);
+      },
+      error(err: {}) {
+        console.error('something wrong occurred: ' + err);
+      },
+      complete() {
+        console.log('done');
+      },
+    });
+    console.log('just after subscribe');
   }
-
 }

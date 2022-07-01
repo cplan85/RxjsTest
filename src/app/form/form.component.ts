@@ -1,3 +1,4 @@
+import { PersonsService } from './../persons.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -9,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class FormComponent implements OnInit {
   myForm: FormGroup;
 
-  constructor() {
+  constructor(private personsService: PersonsService) {
     this.myForm = new FormGroup({
       name: new FormControl(),
       surname: new FormControl(),
@@ -21,5 +22,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {}
+  onSubmit() {
+    this.personsService.addPerson(this.myForm.value);
+  }
 }
